@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Animais</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .btn-edit {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>Lista de Animais</span>
+            <a th:href="@{/animais/novo}" class="btn">+ Novo Animal</a>
+        </h1>
+        
+        <div th:if="${success}" class="success" th:text="${success}"></div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Espécie</th>
+                    <th>Habitat</th>
+                    <th>País de Origem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="animal : ${animais}">
+                    <td th:text="${animal.id}"></td>
+                    <td th:text="${animal.nome}"></td>
+                    <td th:text="${animal.especie}"></td>
+                    <td th:text="${animal.habitat}"></td>
+                    <td th:text="${animal.paisOrigem}"></td>
+                    <td>
+                        <div class="actions">
+                            <a th:href="@{/animais/{id}(id=${animal.id})}" class="btn">Ver</a>
+                            <a th:href="@{/animais/{id}/editar(id=${animal.id})}" class="btn btn-edit">Editar</a>
+                            <form th:action="@{/animais/{id}/deletar(id=${animal.id})}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-delete" onclick="return confirm('Tem certeza que deseja deletar este animal?')">Deletar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/" class="back-link">← Voltar ao Início</a>
+    </div>
+</body>
+</html>

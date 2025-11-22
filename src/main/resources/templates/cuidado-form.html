@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${id != null ? 'Editar Cuidado' : 'Novo Cuidado'}">Formulário de Cuidado</title>
+    <style>
+        /* Same styles as animal-form.html */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${id != null ? 'Editar Cuidado' : 'Novo Cuidado'}">Formulário</h1>
+        
+        <form th:action="${id != null ? '/cuidados/' + id : '/cuidados'}" th:object="${cuidado}" method="post">
+            <div class="form-group">
+                <label for="nome">Nome *</label>
+                <input type="text" th:field="*{nome}" required minlength="1">
+            </div>
+            
+            <div class="form-group">
+                <label for="descricao">Descrição *</label>
+                <textarea th:field="*{descricao}" required minlength="1"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="frequencia">Frequência *</label>
+                <input type="text" th:field="*{frequencia}" required minlength="1">
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn" th:text="${id != null ? 'Atualizar' : 'Criar'}">Salvar</button>
+                <a th:href="@{/cuidados}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const inputs = this.querySelectorAll('input[type="text"], textarea');
+        let hasError = false;
+        
+        inputs.forEach(input => {
+            if (input.value.trim() === '') {
+                input.style.borderColor = '#dc3545';
+                hasError = true;
+            } else {
+                input.style.borderColor = '#ddd';
+            }
+        });
+        
+        if (hasError) {
+            e.preventDefault();
+            alert('Por favor, preencha todos os campos obrigatórios.');
+        }
+    });
+</script>
+</html>
