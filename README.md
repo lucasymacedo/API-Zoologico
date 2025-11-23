@@ -44,4 +44,3 @@ Certifique-se de que o serviço MySQL está rodando e que o usuário `apiuser` e
 
 1. Adicionar suporte a containers (docker)
 2. Adicionar testes
-3. Adicionar 
