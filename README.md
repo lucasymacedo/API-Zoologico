@@ -30,13 +30,13 @@ Você pode setar essas variáveis usando uma das seguintes formas:
 2. **Usando variáveis de ambiente**:
    - No Windows: Altere em Sistema → Configurações Avançadas do Sistema → Variáveis de Ambiente
 
-Para rodar testes com o perfil MySQL:
-Certifique-se que está na raiz do projeto e depois rode o seguinte comando no terminal
-`mvn test -D spring.profiles.active=mysql`
-
 Para rodar o projeto:
 Certifique-se que está na raiz do projeto e depois rode o seguinte comando no terminal
 `mvn spring-boot:run`. Em seguida, abra o navegador e insira a url http://localhost:8080
+
+Para rodar testes com o perfil MySQL:
+Certifique-se que está na raiz do projeto e depois rode o seguinte comando no terminal
+`mvn test -D spring.profiles.active=mysql`
 
 Certifique-se de que o serviço MySQL está rodando e que o usuário `apiuser` existe com a senha correta antes de rodar os testes ou o projeto.
 
