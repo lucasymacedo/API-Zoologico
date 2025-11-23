@@ -16,7 +16,7 @@ Criar um banco de dados chamado TesteEstagio (ou alterar o endereço no campo `s
 Para rodar o projeto, são necessárias as seguintes VARIÁVEIS:
 
 ### Para o perfil MySQL
-- **`MYSQL_PASSWORD`** - A senha da conta `apiuser`. Obrigatória quando for rodar testes ou na própria aplicação quando usando o perfil `mysql`.
+- **`MYSQL_PASSWORD`** - A senha da conta `apiuser`. Obrigatória quando for rodar testes ou na própria aplicação quando usando o perfil `mysql`. Se preferir, abra os arquivos com extensão `.properties`, descomente o campo `spring.datasource.password = ` e complete-o com a senha do banco MySQL, sem aspas 
 
 ### Setup
 
@@ -36,6 +36,8 @@ Certifique-se que está na raiz do projeto e depois rode o seguinte comando no t
 
 Para rodar o projeto:
 Certifique-se que está na raiz do projeto e depois rode o seguinte comando no terminal
-`mvn spring-boot:run`
+`mvn spring-boot:run`. Em seguida, abra o navegador e insira a url http://localhost:8080
 
 Certifique-se de que o serviço MySQL está rodando e que o usuário `apiuser` existe com a senha correta antes de rodar os testes ou o projeto.
+
+
