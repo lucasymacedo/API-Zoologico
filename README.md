@@ -8,19 +8,18 @@ O banco de dados é populado carregando o arquivo data.sql. Feito com Java 17
 
 ### Setup
 
-Instalar o JDK 17, adicionar a variável de ambiente JAVA_HOME em variáveis de sistema, com o caminho para a pasta bin da sua instalação, ex: `C:\Program Files\Java\jdk-17.0.1` 
-
+Instalar o JDK 17 ou superior, adicionar a variável de ambiente JAVA_HOME em variáveis de sistema, com o caminho para a pasta bin da sua instalação, ex: `C:\Program Files\Java\jdk-17.0.1`
 
 Baixar a versão mais recente do Maven em https://maven.apache.org/download.cgi
 
 Alterar a variável PATH em variáveis de sistema, adicionando o caminho para a pasta /bin de sua instalação, ex: `C:\Program Files\apache-maven-3.9.11\bin`
 
 
-## ALTERAÇÕES
+## Alterações
 
 Para rodar o projeto, é necessário fazer as seguintes alterações:
 
-Criar uma conexão com banco de dados mySQL e um banco chamado TesteEstagio (ou alterar o endereço no campo `spring.datasource.url` no arquivo `application.properties` para um banco criado por você), um usuário chamado `apiuser` (ou alterar o nome no campo `spring.datasource.username` para o seu usuário mySql)
+Criar uma conexão com banco de dados MySQL e um banco chamado TesteEstagio (ou alterar o endereço no campo `spring.datasource.url` no arquivo `application.properties` para um banco criado por você), um usuário chamado `apiuser` (ou alterar o nome no campo `spring.datasource.username = apiuser` para o seu usuário mySql)
 
 Abra o arquivo `application.properties`, altere o campo `spring.datasource.password = ${MYSQL_PASSWORD}` e substitua `${MYSQL_PASSWORD}` pela senha do seu banco MySQL, sem aspas.
 
