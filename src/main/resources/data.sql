@@ -1,3 +1,9 @@
+USE TesteEstagio;
+DELETE FROM animais where id > 0;
+DELETE FROM cuidados WHERE id > 0;
+ALTER TABLE animais AUTO_INCREMENT = 1;
+ALTER TABLE cuidados AUTO_INCREMENT = 1;
+
 INSERT IGNORE INTO animais (nome, descricao, data_nascimento, especie, habitat, pais_origem) VALUES
 ('Simba', 'Leão adulto de temperamento calmo, costuma descansar ao sol.', '2016-05-11', 'Leão-africano', 'Savanas africanas', 'Quênia'),
 ('Mel', 'Elefanta fêmea muito sociável, gosta de interagir com visitantes.', '2011-09-23', 'Elefante-africano', 'Áreas de savana e bosques', 'África do Sul'),

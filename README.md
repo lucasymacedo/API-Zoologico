@@ -3,44 +3,41 @@
 
 Uma pequena API que retorna Animais e Cuidados, junto de uma página web para consumir a API.
 O projeto utiliza a linguagem Java e algumas ferramentas como Spring Boot, Maven e Thymeleaf, em um banco de dados MySQL.
-O banco de dados é populado carregando o arquivo data.sql*. Feito com Java 17
+O banco de dados é populado carregando o arquivo data.sql. Feito com Java 17
 
-
-*Desabilitei o carregamento do script que populava o banco pois estava gerando entradas duplicadas
-
-Criar um banco de dados chamado TesteEstagio (ou alterar o endereço no campo `spring.datasource.url` nos arquivos com final `.properties` para um banco criado por você), um usuário chamado `apiuser` (ou alterar o nome no campo `spring.datasource.username`)
-
-
-## VARIÁVEIS DE AMBIENTE
-
-Para rodar o projeto, são necessárias as seguintes VARIÁVEIS:
-
-### Para o perfil MySQL
-- **`MYSQL_PASSWORD`** - A senha da conta `apiuser`. Obrigatória quando for rodar testes ou na própria aplicação quando usando o perfil `mysql`. Se preferir, abra os arquivos com extensão `.properties`, descomente o campo `spring.datasource.password = ` e complete-o com a senha do banco MySQL, sem aspas 
 
 ### Setup
 
+Instalar o JDK 17, adicionar a variável de ambiente JAVA_HOME em variáveis de sistema, com o caminho para a pasta bin da sua instalação, ex: `C:\Program Files\Java\jdk-17.0.1` 
+
+
 Baixar a versão mais recente do Maven em https://maven.apache.org/download.cgi
 
-Alterar a variável PATH em variáveis de sistema, adicionando o caminho para a pasta
+Alterar a variável PATH em variáveis de sistema, adicionando o caminho para a pasta /bin de sua instalação, ex: `C:\Program Files\apache-maven-3.9.11\bin`
 
-Você pode setar essas variáveis usando uma das seguintes formas:
 
-1. **Usando um arquivo `.env` (recomendado)**:
-   - Crie um arquivo de nome `.env` na raiz do projeto (api).
-   - Adicione a seguinte linha:
-    MYSQL_PASSWORD=<sua_senha_aqui>, sem aspas.
-   - O arquivo `.env` está no `.gitignore` e não será incluído no commit, se optar por esse método, você deverá criar seu próprio arquivo.
-2. **Usando variáveis de ambiente**:
-   - No Windows: Altere em Sistema → Configurações Avançadas do Sistema → Variáveis de Ambiente
+## ALTERAÇÕES
+
+Para rodar o projeto, é necessário fazer as seguintes alterações:
+
+Criar uma conexão com banco de dados mySQL e um banco chamado TesteEstagio (ou alterar o endereço no campo `spring.datasource.url` no arquivo `application.properties` para um banco criado por você), um usuário chamado `apiuser` (ou alterar o nome no campo `spring.datasource.username` para o seu usuário mySql)
+
+Abra o arquivo `application.properties`, altere o campo `spring.datasource.password = ${MYSQL_PASSWORD}` e substitua `${MYSQL_PASSWORD}` pela senha do seu banco MySQL, sem aspas.
+
+
+## Rodando o projeto
 
 Para rodar o projeto:
 Certifique-se que está na raiz do projeto e depois rode o seguinte comando no terminal
 `mvn spring-boot:run`. Em seguida, abra o navegador e insira a url http://localhost:8080
 
-Certifique-se de que o serviço MySQL está rodando e que o usuário `apiuser` existe com a senha correta antes de rodar os testes ou o projeto.
+Certifique-se de que o serviço MySQL está rodando e que o usuário `apiuser` existe com a senha correta antes de rodar os testes ou o projeto, ou que você trocou o usuário e a senha conforme instruído no campo ALTERAÇÕES.
 
 ### Próximos passos:
 
 1. Adicionar suporte a containers (docker)
 2. Adicionar testes
+3. Adicionar mais validações
+4. Adicionar arquivo .env para reduzir a quantidade de alterações necessárias
+5. Adicionar um script que cria o banco e o usuário MySQL automaticamente
+6. Fazer com que a aplicação não derrube (DROP) a tabela cada vez que iniciar, populando o banco com o arquivo data.sql apenas uma vez
