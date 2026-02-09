@@ -1,0 +1,101 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+
+  app:
+    build: .        
+    ports:
+      - "8080:8080"
+    networks:
+      - api-zoologico-network
+    depends_on:
+      - mysqldb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/TesteEstagio
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysqldb_root_password
+      MYSQL_PASSWORD_FILE: /run/secrets/mysqldb_user_password
+      MYSQL_USER: apiuser
+      #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: TesteEstagio # Optional: specify a default database
+      #MYSQL_USER: root         # Optional: specify a default user
+      #MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password # Optional: for the default user's password
+    secrets:
+      - mysqldb_root_password
+      - mysqldb_user_password
+
+
+
+  mysqldb:
+    image: mysql:8.0
+    container_name: api-zoologico
+    networks:
+      - api-zoologico-network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/TesteEstagio
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysqldb_root_password
+      MYSQL_USER: apiuser
+      #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: TesteEstagio # Optional: specify a default database
+      #MYSQL_ROOT_PASSWORD: 
+      #MYSQL_USER: root         # Optional: specify a default user
+      MYSQL_PASSWORD_FILE: /run/secrets/mysqldb_user_password # Optional: for the default user's password
+    ports:
+      - "3306:3306"
+    secrets:
+      # Link the service to the secret definition
+      - mysqldb_root_password
+      - mysqldb_user_password # Optional: if using a user password secret
+    restart: always
+    
+
+secrets:
+  # Define the secrets, pointing to the file on your host
+  mysqldb_root_password:
+    file: ./mysqldb_root_password.txt
+  mysqldb_user_password: # Optional: definition for the user password secret
+    file: ./mysqldb_user_password.txt
+
+networks:
+  api-zoologico-network:
+    driver: bridge
+
+# The commented out section below is an example of how to define a PostgreSQL
+# database that your application can use. `depends_on` tells Docker Compose to
+# start the database before your application. The `db-data` volume persists the
+# database data between container restarts. The `db-password` secret is used
+# to set the database password. You must create `db/password.txt` and add
+# a password of your choosing to it before running `docker-compose up`.
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#   db:
+#     image: postgres
+#     restart: always
+#     user: postgres
+#     secrets:
+#       - db-password
+#     volumes:
+#       - db-data:/var/lib/postgresql/data
+#     environment:
+#       - POSTGRES_DB=example
+#       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+#     expose:
+#       - 5432
+#     healthcheck:
+#       test: [ "CMD", "pg_isready" ]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+# volumes:
+#   db-data:
+# secrets:
+#   db-password:
+#     file: db/password.txt
+

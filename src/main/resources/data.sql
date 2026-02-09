@@ -1,6 +1,6 @@
 USE TesteEstagio;
-DELETE FROM animais where id > 0;
-DELETE FROM cuidados WHERE id > 0;
+-- DELETE FROM animais where id > 0;
+-- DELETE FROM cuidados WHERE id > 0;
 ALTER TABLE animais AUTO_INCREMENT = 1;
 ALTER TABLE cuidados AUTO_INCREMENT = 1;
 

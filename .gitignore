@@ -32,3 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 .env
+mysqldb_root_password.txt
+mysqldb_user_password.txt

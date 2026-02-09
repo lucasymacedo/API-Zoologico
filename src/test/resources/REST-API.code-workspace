@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../REST-API"
+		},
+		{
+			"path": "../../../../../../../../gs-rest-service"
+		},
+		{
+			"path": "../../../.."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive",
+		"java.compile.nullAnalysis.mode": "automatic"
+	}
+}
