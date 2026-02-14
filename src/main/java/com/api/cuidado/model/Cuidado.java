@@ -13,7 +13,7 @@ public class Cuidado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    // @Column(unique = true)
     private String nome;
     private String descricao;
     private String frequencia;

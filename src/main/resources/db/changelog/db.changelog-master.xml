@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+   <changeSet id="20260213952" author="lucas">
+      <createTable tableName="Animais">
+         <column name="id" type="int">
+            <constraints primaryKey="true" nullable = "false"/>
+         </column>
+         <column name="nome" type="VARCHAR(255)"/>
+         <column name="descricao" type="VARCHAR(255)"/>
+         <column name="data_nascimento" type="DATE"/>
+         <column name="especie" type="VARCHAR(255)"/>
+         <column name="habitat" type="VARCHAR(255)"/>
+         <column name="pais_origem" type="VARCHAR(255)"/>
+      </createTable>
+      <createTable tableName="Cuidados">
+         <column name="id" type="int">
+            <constraints primaryKey="true" nullable = "false"/>
+         </column>
+         <column name="nome" type="VARCHAR(255)"/>
+         <column name="descricao" type="VARCHAR(255)"/>
+         <column name="frequencia" type="VARCHAR(255)"/>
+      </createTable>
+   </changeSet>
+
+</databaseChangeLog>

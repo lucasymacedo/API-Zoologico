@@ -18,7 +18,7 @@ public class Animal {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
-    @Column (unique = true)
+    //@Column (unique = true)
     private String nome;
     private String descricao;
     @Column(name = "data_nascimento")

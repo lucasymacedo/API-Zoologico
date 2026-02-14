@@ -30,7 +30,12 @@ services:
       - mysqldb_root_password
       - mysqldb_user_password
 
-
+  liquibase:
+    image: liquibase-mysql
+    container_name: liquibase-runner
+    depends_on:
+      - mysqldb
+        
 
   mysqldb:
     image: mysql:8.0
@@ -52,8 +57,14 @@ services:
       # Link the service to the secret definition
       - mysqldb_root_password
       - mysqldb_user_password # Optional: if using a user password secret
-    restart: always
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-psecretpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     
+  
 
 secrets:
   # Define the secrets, pointing to the file on your host
