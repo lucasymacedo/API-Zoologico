@@ -9,50 +9,58 @@
 # https://github.com/docker/awesome-compose
 services:
 
-  app:
+  api:
     build: .        
     ports:
       - "8080:8080"
     networks:
       - api-zoologico-network
-    depends_on:
-      - mysqldb
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/TesteEstagio
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysqldb_root_password
-      MYSQL_PASSWORD_FILE: /run/secrets/mysqldb_user_password
+      MYSQL_HOST: mysqldb
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/zoologico
+      #MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysqldb_root_password
+      #MYSQL_PASSWORD_FILE: /run/secrets/mysqldb_user_password
       MYSQL_USER: apiuser
-      #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: TesteEstagio # Optional: specify a default database
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: zoologico # Optional: specify a default database
       #MYSQL_USER: root         # Optional: specify a default user
       #MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password # Optional: for the default user's password
-    secrets:
-      - mysqldb_root_password
-      - mysqldb_user_password
+    depends_on: 
+      mysqldb:
+        condition: service_healthy
+    #secrets:
+    #  - mysqldb_root_password
+    #  - mysqldb_user_password
 
 
 
   mysqldb:
-    image: mysql:8.0
+    image: "mysql:8.0"
     container_name: api-zoologico
     networks:
       - api-zoologico-network
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/TesteEstagio
-      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysqldb_root_password
+      MYSQL_DATABASE: zoologico # Optional: specify a default database
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/zoologico
+      #MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysqldb_root_password
       MYSQL_USER: apiuser
-      #MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: TesteEstagio # Optional: specify a default database
-      #MYSQL_ROOT_PASSWORD: 
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rpassword
       #MYSQL_USER: root         # Optional: specify a default user
-      MYSQL_PASSWORD_FILE: /run/secrets/mysqldb_user_password # Optional: for the default user's password
+      #MYSQL_PASSWORD_FILE: /run/secrets/mysqldb_user_password # Optional: for the default user's password
     ports:
-      - "3306:3306"
-    secrets:
+      - "3307:3306"
+    #secrets:
       # Link the service to the secret definition
-      - mysqldb_root_password
-      - mysqldb_user_password # Optional: if using a user password secret
+      #- mysqldb_root_password
+      #- mysqldb_user_password # Optional: if using a user password secret
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -ppassword"]
+      timeout: 20s
+      retries: 10
     restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
     
 
 secrets:
@@ -65,6 +73,9 @@ secrets:
 networks:
   api-zoologico-network:
     driver: bridge
+
+volumes: 
+  mysql-data:
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to

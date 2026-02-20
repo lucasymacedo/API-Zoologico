@@ -1,10 +1,11 @@
-USE TesteEstagio;
+-- USE TesteEstagio;
 -- DELETE FROM animais where id > 0;
 -- DELETE FROM cuidados WHERE id > 0;
-ALTER TABLE animais AUTO_INCREMENT = 1;
-ALTER TABLE cuidados AUTO_INCREMENT = 1;
 
-INSERT IGNORE INTO animais (nome, descricao, data_nascimento, especie, habitat, pais_origem) VALUES
+-- ALTER TABLE animais AUTO_INCREMENT = 1;
+-- ALTER TABLE cuidados AUTO_INCREMENT = 1;
+
+INSERT INTO animais (nome, descricao, data_nascimento, especie, habitat, pais_origem) VALUES
 ('Simba', 'Leão adulto de temperamento calmo, costuma descansar ao sol.', '2016-05-11', 'Leão-africano', 'Savanas africanas', 'Quênia'),
 ('Mel', 'Elefanta fêmea muito sociável, gosta de interagir com visitantes.', '2011-09-23', 'Elefante-africano', 'Áreas de savana e bosques', 'África do Sul'),
 ('Luna', 'Girafa jovem conhecida pelo pescoço longo e curiosidade constante.', '2019-03-07', 'Girafa', 'Savanas abertas', 'Tanzânia'),
@@ -16,7 +17,7 @@ INSERT IGNORE INTO animais (nome, descricao, data_nascimento, especie, habitat, 
 ('Zuri', 'Hipopótamo jovem que passa grande parte do tempo na água.', '2017-04-20', 'Hipopótamo-comum', 'Rios e lagos', 'Uganda'),
 ('Kodiak', 'Lobo atento e rápido, costuma uivar ao anoitecer.', '2016-10-09', 'Lobo-cinzento', 'Florestas frias', 'Canadá');
 
-INSERT IGNORE INTO cuidados (nome, descricao, frequencia) 
+INSERT INTO cuidados (nome, descricao, frequencia) 
     VALUES
 ('Alimentação diária', 'Fornecimento de dieta adequada de acordo com a espécie, incluindo carnes, frutas, verduras ou rações específicas.', 'Diária'),
 ('Banho', 'Higienização completa do animal com produtos adequados, respeitando características do pelo e da pele.', 'Mensal'),
